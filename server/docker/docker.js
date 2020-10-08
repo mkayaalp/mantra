@@ -69,7 +69,7 @@ var createContainer = function createContainer(aContainerImage, aCommand, aWorki
 
   // the settings for the request we send to the Docker API
   var options = {
-    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + '/containers/create',
+    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + config.docker.api + '/containers/create',
     json: payload,
     method: 'POST'
   };
@@ -116,7 +116,7 @@ var createContainer = function createContainer(aContainerImage, aCommand, aWorki
       }
     })
     .catch(function(err) {
-
+      console.log(err);
       var errResult = {
         statusCode: 500,
         msg: 'Unknown error creating new container. Make sure the Docker demon is running.'
@@ -136,7 +136,7 @@ var startContainer = function (aContainerId) {
 
   // the settings for the request we send to the Docker API
   var options = {
-    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + '/containers/' + aContainerId + '/start',
+    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + config.docker.api + '/containers/' + aContainerId + '/start',
     method: 'POST'
   };
 
@@ -204,7 +204,7 @@ var stopContainer = function (aContainerId, aWaitSecUntilKill) {
 
   // the settings for the request we send to the Docker API
   var options = {
-    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + '/containers/' + aContainerId + '/stop',
+    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + config.docker.api + '/containers/' + aContainerId + '/stop',
     method: 'POST'
   };
 
@@ -278,7 +278,7 @@ var removeContainer = function (aContainerId, aForceRemoval) {
 
   // the settings for the request we send to the Docker API
   var options = {
-    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + '/containers/' + aContainerId + '?force=' + lForceRemoval,
+    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + config.docker.api + '/containers/' + aContainerId + '?force=' + lForceRemoval,
     method: 'DELETE'
   };
 
@@ -345,7 +345,7 @@ var attachAndRunContainer = function attachAndRunContainer (aContainerId) {
     // create a websocket client
     var wsClient = new WebSocketClient();
     // construct the Websocket Uri
-    var wsUri = 'ws://' + config.docker.hostIP + ':' + config.docker.hostPort + '/containers/' + aContainerId + '/attach/ws?logs=0&stream=1&stdout=1&stdin=0&stderr=1';
+    var wsUri = 'ws://' + config.docker.hostIP + ':' + config.docker.hostPort + config.docker.api + '/containers/' + aContainerId + '/attach/ws?logs=0&stream=1&stdout=1&stdin=0&stderr=1';
 
     logger.debug('dockerjs.attachAndRunContainer: websocket uri: ' + wsUri);
 
@@ -412,7 +412,7 @@ var attachAndRunContainer = function attachAndRunContainer (aContainerId) {
     // first argument: the url of the container's websocket
     // second arg: could specify subprotocols supported by the client (not needed)
     // third arg: origin-policy, identifies where the ws request comes from (needed, otherwise Docker WS sends 403)
-    wsClient.connect(wsUri, null, 'http://' + config.docker.hostIP + ':' + config.docker.hostPort);
+    wsClient.connect(wsUri, null, 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + config.docker.api);
   });
 };
 
@@ -432,7 +432,7 @@ var monitorEvents = function(aNumReConnects, aMaxNumberReConnects, aEventCallbac
   // the settings for the request we send to the Docker API
   // we filter to only receive events when containers die; then, we'll run aEventCallback to e.g. remove the container
   var options = {
-    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + '/events?filters={"event":["die"]}'
+    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + config.docker.api + '/events?filters={"event":["die"]}'
   };
 
   // Function to reconnect to the event stream. Waits for 5 sec before trying a reconnect
@@ -501,7 +501,7 @@ var _checkNProcPerContainer = function(aMaxNProc) {
   var checkContainer = function (aContainerId, aMaxNumOfProcs) {
 
     var options = {
-      url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + '/containers/' + aContainerId + '/top',
+      url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + config.docker.api + '/containers/' + aContainerId + '/top',
       method: 'GET'
     };
 
@@ -540,7 +540,7 @@ var _checkNProcPerContainer = function(aMaxNProc) {
 
   // get a list of all running containers
   var options = {
-    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + '/containers/json',
+    url: 'http://' + config.docker.hostIP + ':' + config.docker.hostPort + config.docker.api + '/containers/json',
     method: 'GET'
   };
 
