@@ -1,3 +1,6 @@
+*Forked from [codeboardio/mantra](https://github.com/codeboardio/mantra). Deployment is not recommended due to old dependencies.*
+
+
 # Mantra
 Web service for compiling and running programs. Part of the codeboard.io project.
 
@@ -5,12 +8,18 @@ Web service for compiling and running programs. Part of the codeboard.io project
 
 Mantra requires NodeJS and Docker.
 
-* Nodejs: tested with version 0.12.9
-* Docker: tested with version 1.8.1 ([installation instructions here](https://docs.docker.com/engine/installation/ubuntulinux))
-* Mantra has been tested on an Ubuntu 14.04 system.
+* Nodejs: tested with version 0.12.18
+* Docker: tested with version 17.03
+* Mantra has been tested on an Ubuntu 16.04 system.
 
 
 ## Preparations
+
+### Install docker
+
+```
+sudo apt-get install docker-ce
+```
 
 ### Preparing an Ubuntu system
 When running Mantra in production, it assumes that user of name "cobo" exits. The user must have a specific user id and be part of a group with a specific id. The following assumes a "fresh" Linux system and we'll add the user and group we need.
@@ -48,7 +57,35 @@ shutdown -r now
 ```
 
 ### Preparing Docker Remote API on Ubuntu
-Configure the Docker Remote API by editing the Docker conf file.
+
+#### Systemd
+
+For Systemd, configure the Docker Remote API by creating a systemd drop-in file.
+```
+sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo vi /etc/systemd/system/docker.service.d/override.conf
+```
+
+Add the following lines:
+```
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H tcp://127.0.0.1:4243 -H unix:///var/run/docker.sock
+```
+
+Reload Systemd configuration:
+```
+sudo systemctl daemon-reload
+```
+
+Restart docker service:
+```
+sudo systemctl restart docker
+```
+
+#### Upstart/SysVinit
+
+For Upstart and SysVinit, configure the Docker Remote API by editing the Docker conf file.
 
 ```
 sudo vi /etc/default/docker
@@ -79,7 +116,7 @@ git clone https://github.com/codeboardio/codeboard_docker.git codeboard_docker
 
 Change into the codeboard_docker folder and run the script
 ```
-.build_all_docker.sh
+./build_all_docker.sh
 ```
 
 Once the script is done, we can check that the Docker images are available.
