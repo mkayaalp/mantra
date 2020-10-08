@@ -41,6 +41,10 @@ var languages = [
   {
     name: CONST.LANGUAGE_NAME.PYTHON_UNIT_TEST,
     propertyFile: 'python-unittest.js'
+  },
+  {
+    name: CONST.LANGUAGE_NAME.EIFFEL,
+    propertyFile: 'eiffel.js'
   }
 ];
 
