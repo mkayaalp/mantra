@@ -23,7 +23,8 @@ module.exports = {
     JAVA_JUNIT: 'Java-JUnit',
     PYTHON: 'Python',
     PYTHON_UNIT_TEST: 'Python-UnitTest',
-    EIFFEL: 'Eiffel'
+    EIFFEL: 'Eiffel',
+    EIFFEL_SCOOP: 'Eiffel-SCOOP'
   }
 
 };

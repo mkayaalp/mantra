@@ -24,12 +24,12 @@ module.exports = {
   isLanguageWithTestSupport: false,
 
   // name of the docker image that is used to execute "compile" or "run" for this language
-  dockerImage: 'cobo/eiffel-scoop',
+  dockerImage: 'cobo/eiffel',
 
   // timeout settings that will apply to all containers of this language
   timeoutSettings: {
     // time (sec) that's the maximum allowed CPU usage time
-    cpu: 12,
+    cpu: 300,
     // time (sec) that's the maximum allowed session time, i.e. the time before a running container is terminated
     session: 900, // 15 minutes
     // time (sec) that's the maximum allowed session time in case a session is NOT a WS streaming session (i.e. no user input)
@@ -78,7 +78,7 @@ module.exports = {
       target: 'project'
     };
 
-    var compileCmd = 'ec -batch -config ' + eiffelCoboConfig.ecf + ' -target ' + eiffelCoboConfig.target + ' -c_compile';
+    var compileCmd = 'ecb -batch -config ' + eiffelCoboConfig.ecf + ' -target ' + eiffelCoboConfig.target + ' -c_compile';
     return compileCmd;
   },
 

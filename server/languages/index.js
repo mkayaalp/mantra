@@ -45,6 +45,10 @@ var languages = [
   {
     name: CONST.LANGUAGE_NAME.EIFFEL,
     propertyFile: 'eiffel.js'
+  },
+  {
+    name: CONST.LANGUAGE_NAME.EIFFEL_SCOOP,
+    propertyFile: 'eiffel-scoop.js'
   }
 ];
 
