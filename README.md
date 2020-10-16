@@ -18,7 +18,10 @@ Mantra requires NodeJS and Docker.
 ### Install docker
 
 ```
-sudo apt-get install docker-ce
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+sudo apt-get update
+sudo apt-get install docker-ce=17.03.3~ce-0~ubuntu-xenial
 ```
 
 ### Preparing an Ubuntu system
