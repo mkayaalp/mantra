@@ -8,7 +8,7 @@ Web service for compiling and running programs. Part of the codeboard.io project
 
 Mantra requires NodeJS and Docker.
 
-* Nodejs: tested with version 0.12.18
+* Nodejs: tested with version 6.17.1
 * Docker: tested with version 17.03
 * Mantra has been tested on an Ubuntu 16.04 system.
 
