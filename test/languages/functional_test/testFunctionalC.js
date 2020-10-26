@@ -12,6 +12,7 @@ app.use(bodyParser());
 
 describe('Test Mantra with C compilation', function () {
 
+  this.timeout(5000);
 
   it('Mantra C: successful compilation (one file)', function (done) {
     var folder = testConfig.getTestResource("/c/c_one_file");
