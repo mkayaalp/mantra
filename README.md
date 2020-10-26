@@ -9,7 +9,7 @@ Web service for compiling and running programs. Part of the codeboard.io project
 Mantra requires NodeJS and Docker.
 
 * Nodejs: tested with version 10.22.1
-* Docker: tested with version 17.03
+* Docker: tested with version 19.03
 * Mantra has been tested on an Ubuntu 16.04 system.
 
 
@@ -21,7 +21,7 @@ Mantra requires NodeJS and Docker.
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
 sudo apt-get update
-sudo apt-get install docker-ce=17.03.3~ce-0~ubuntu-xenial
+sudo apt-get install docker-ce=19.03.13~3-0~ubuntu-xenial
 ```
 
 ### Preparing an Ubuntu system

@@ -66,7 +66,7 @@ var all = {
     // the port of the Docker Remote API
     hostPort: process.env.DockerHostPort || "4243",
     // the Docker Engine API version (required in all API call URLs since v1.25)
-    api: "/v1.27",
+    api: "/v1.40",
 
     // set the ulimit for number of processes that a container can run
     // (Note: nproc limit is shared between all containers running with the same user)

@@ -381,6 +381,9 @@ var attachAndRunContainer = function attachAndRunContainer (aContainerId) {
         if (message.type === 'utf8') {
           stdOutput += message.utf8Data;
         }
+        else {
+          stdOutput += message.binaryData;
+        }
       });
 
       // start the container
